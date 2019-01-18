@@ -4,7 +4,7 @@
   "description": "this is my second bot",
   "main": "index.js",
   "engines": {
-    "node": "6.4.1"
+    "node": "v10.15.0"
   },
   "dependencies": {
     "discord.js": "^11.4.2",
