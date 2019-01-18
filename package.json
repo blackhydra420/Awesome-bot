@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "this is my second bot",
   "main": "index.js",
+  "engines": {
+    "node": "6.4.1"
+  },
   "dependencies": {
     "discord.js": "^11.4.2",
-    "request": "6.4.1",
     "discord.js-commando": "^0.10.0",
     "ffmpeg": "0.0.4",
     "ffmpeg-binaries": "^4.0.0",
