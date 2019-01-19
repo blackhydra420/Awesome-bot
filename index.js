@@ -5,6 +5,10 @@ const bot = new commando.Client({
     commandPrefix: "?"
 });
 
+bot.on("ready", function(){
+    console.log("bot is online");
+});
+
 bot.registry.registerGroup('random', 'Random');
 bot.registry.registerGroup('music', 'Music');
 bot.registry.registerGroup('general', 'General');

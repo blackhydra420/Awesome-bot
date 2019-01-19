@@ -10,7 +10,10 @@ class DiceRollCommand extends commando.Command {
         });
     }
     async run(message, args){
-        var roll = Math.floor(Math.random() * 6) + 1;
+        if(!args){
+            args = 6;
+        }
+        var roll = Math.floor(Math.random() * args) + 1;
         message.channel.sendMessage('You rolled a dice and get: '+ roll);
     }
 }
