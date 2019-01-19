@@ -2,7 +2,7 @@
 
 const commando = require('discord.js-commando');
 const bot = new commando.Client({
-    commandPrefix: "?"
+    commandPrefix: "!"
 });
 
 bot.on("ready", function(){
