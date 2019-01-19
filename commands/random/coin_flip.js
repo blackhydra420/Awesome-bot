@@ -19,12 +19,12 @@ class CoinFlip extends commando.Command{
             side = 'Head';
             flipResult.setDescription('Hello ' + message.author + ' you got ' + side);
             message.channel.send(flipResult);
-            message.channel.send({ files: [__dirname + '\\Pictures\\Heads.jpg'] });
+            message.channel.send({ files: [__dirname + '/Pictures/Heads.jpg'] });
         } else {
             side = 'Tail';
             flipResult.setDescription('Hello ' + message.author + ' you got ' + side);
             message.channel.send(flipResult);
-            message.channel.send({ files: [__dirname + '\\Pictures\\Tails.jpg'] });
+            message.channel.send({ files: [__dirname + '/Pictures/Tails.jpg'] });
         }
     }
 }
