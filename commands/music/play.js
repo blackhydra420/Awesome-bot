@@ -1,5 +1,59 @@
 const commando = require('discord.js-commando');
 const search = require('yt-search');
+const YTDL = require('ytdl-core');
+
+function Playsong(connection, message, finalResult){
+    var server = servers[message.guild.id];
+    if(!server.dispatcher){
+    server.dispatcher = connection.playStream(YTDL('https://www.youtube.com' + server.queue[0].url,{filter: 'audioonly'}));
+    message.channel.send('Playing '+ server.queue[0].title + ', Duration: ' + server.queue[0].timestamp);
+    console.log('playing');
+    }
+    server.dispatcher.on("end", function(){
+        var server = servers[message.guild.id];
+        server.queue.shift();
+        server.dispatcher = null;
+        console.log('shifted');
+        if(server.queue[0]){
+            Playsong(connection, message, finalResult);
+        } else {
+            connection.disconnect();
+        }
+    });
+}
+
+function queue(connection, finalResult, message){
+    if(!servers[message.guild.id])// checking if server already has a queue or not
+    {
+        servers[message.guild.id] = {queue: []};//assigning queue to the server
+        console.log('queue inserted');
+    }
+    var server = servers[message.guild.id];
+    server.queue.push(finalResult);//pushing the search result of video inside queue
+    console.log('pushed');
+    if(!server.dispatcher){
+        Playsong(connection, message, finalResult);
+    } else {
+        message.channel.send(finalResult.title + ' added to the queue');
+    }
+}
+
+function getURL(message, finalResult){
+    if (message.member.voiceChannel)// checking if member is inside voice channel or not
+    {
+        console.log(finalResult.url);
+        if (!message.guild.voiceConnection)// checking if bot inside the channel or not
+        {
+            message.member.voiceChannel.join().then(connection => {
+                queue(connection, finalResult, message);
+            });
+        } else {
+            queue(message.member.voiceChannel.connection, finalResult, message);
+        }
+    } else {
+        message.reply(":crossed_swords: You must be inside a voice channel to summon me!");
+    }
+}
 
 class PlaySong extends commando.Command{
     constructor(client){
@@ -7,33 +61,23 @@ class PlaySong extends commando.Command{
             name:'play',
             group: 'music',
             memberName: 'play',
-            description: 'play the song of user choice'
+            description: 'play the song of the user choice'
         });
     }
     async run(message, args){
-        search(args,function(err, rse){
-            if(err) return message.channel.send('Sorry something went wrong!');
+        if(!args){
+            message.reply(" Song name can't be empty");
+        } else {
+        //searching a video
+        search(args, function (err, res) {
+            if (err) return message.channel.send('Sorry something went wrong!');
 
-            let videos = res.videos.slice(0,10);
-
-            let resp = "";
-            for (var i in videos){
-                resp += '[${parseInt(i)+1}]"${videos[i].title}"\n';
-            }
-            resp += '\n Choose a number between "1-${videos.length}"';
-
-            message.channel.send(resp);
-
-            const filter = m => !isNaN(m.content) && m.content < videos.length+1 && m.content > 0;
-
-            const collector = message.channel.createMessageCollector(filter);
-
-            collector.videos = videos;
-            collector.once('collect', function(m){
-                let commandFile = require('./music_bot.js');
-                commandFile.run(client, message, [this.videos[parseInt(m.content)-1].url], ops);
-            });
+            let videos = res.videos;
+            let finalResult = videos[0];
+            finalResult.requestor = message.author.tag;
+            getURL(message, finalResult);
         });
+    }
     }
 }
 

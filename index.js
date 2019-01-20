@@ -1,11 +1,16 @@
-
-
 const commando = require('discord.js-commando');
 const bot = new commando.Client({
     commandPrefix: "$"
 });
 
 bot.on("ready", function(){
+    bot.user.setPresence({
+        game: {
+            name: 'all members',
+            type: 'WATCHING'
+        },
+        status: 'online'
+    });
     console.log("bot is online");
 });
 

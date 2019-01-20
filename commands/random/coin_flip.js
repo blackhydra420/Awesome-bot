@@ -14,17 +14,17 @@ class CoinFlip extends commando.Command{
     async run(message,args){
         var side = "";
         var sideNum = Math.floor(Math.random() * 2) + 1;
-        var flipResult = new Discord.RichEmbed().setColor(0xFF00FF).setTitle('Coin tossed');
+        var flipResult = new Discord.RichEmbed().setColor(0xFFFF00).setTitle('Coin tossed');
         if(sideNum == 1){
             side = 'Head';
-            flipResult.setDescription('Hello ' + message.author + ' you got ' + side);
+            flipResult.setDescription('Hello ' + message.author + ' you got ' + side)
+                .setImage('https://i.imgur.com/fY2vLKa.jpg');
             message.channel.send(flipResult);
-            message.channel.send({ files: [__dirname + '/Pictures/Heads.jpg'] });
         } else {
             side = 'Tail';
-            flipResult.setDescription('Hello ' + message.author + ' you got ' + side);
+            flipResult.setDescription('Hello ' + message.author + ' you got ' + side)
+                .setImage('https://i.imgur.com/Jk8IoWq.jpg');
             message.channel.send(flipResult);
-            message.channel.send({ files: [__dirname + '/Pictures/Tails.jpg'] });
         }
     }
 }

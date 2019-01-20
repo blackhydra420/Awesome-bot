@@ -12,14 +12,16 @@ class Info extends commando.Command{
     }
     async run(message, args){
         var myInfo = new Discord.RichEmbed()
-        .setTitle('Google')
-        .setURL('https://google.com')
-        .addField('About Me',"I am just a Awesome Bot", true)
+        .setTitle('Awesome bot')
+        .addField('About Me',"I am just an Awesome Bot.", true)
+            .addField('Github Repo', '[Here](https://github.com/blackhydra420/Awesome-bot)',true)
+            .addField('Hosted At',"Heroku", true)
+            .addField('Server', message.guild.name , true)
         .setDescription('!Hello '+ message.author)
         .setColor(0xFFFFFF)
-        .setThumbnail(message.author.avatarURL)
+        .setThumbnail(this.client.user.avatarURL)
         .setFooter('Thanks for asking');
-        message.channel.sendMessage(myInfo);
+        message.channel.send(myInfo);
     }
 }
 
