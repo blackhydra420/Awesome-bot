@@ -11,6 +11,8 @@ This is my first bot which can play music and some basic games.
 
 ### *Bot-commands:*
 * info: It will give you info about this bot.
+* join: It will join the commander voice channel.
+* leave: It will leave the voice channel.
 
 ### *Games-commands:*
 * flip: It will flip the coin and give you either heads or tails.
