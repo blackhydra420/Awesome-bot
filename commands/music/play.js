@@ -4,15 +4,12 @@ const YTDL = require('ytdl-core');
 
 function Playsong(connection, message, finalResult){
     var server = servers[message.guild.id];
-    if(!server.dispatcher){
     server.dispatcher = connection.playStream(YTDL('https://www.youtube.com' + server.queue[0].url,{filter: 'audioonly'}));
     message.channel.send('Playing '+ server.queue[0].title + ', Duration: ' + server.queue[0].timestamp);
     console.log('playing');
-    }
     server.dispatcher.on("end", function(){
         var server = servers[message.guild.id];
         server.queue.shift();
-        server.dispatcher = null;
         console.log('shifted');
         if(server.queue[0]){
             Playsong(connection, message, finalResult);
