@@ -10,7 +10,7 @@ This is my first bot which can play music and some basic games.
 * resume: It will resume the paused song.
 * queue: Shows the list of songs in a queue.
 * remove: Removes the song from the list from given location.
-* skip: Skips the currently plating song.
+* skip: Skips the currently playing song.
 
 ### *Bot-commands:*
 * info: It will give you info about this bot.
