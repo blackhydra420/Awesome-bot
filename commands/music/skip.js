@@ -20,7 +20,7 @@ class SkipSong extends commando.Command{
                 console.log('no same channel');
             } else {
                 message.channel.send("Successfully skipped " + server.queue[0].title + ' --Requested by- ' + server.queue[0].requestor);
-                server.dispatcher.emit('end');
+                server.dispatcher.end();
                 console.log('skipped song')
             }
     }
