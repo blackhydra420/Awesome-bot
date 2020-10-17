@@ -16,7 +16,7 @@
     "ytdl-core": "^0.29.1"
   },
   "devDependencies": {
-    "bl": ">=1.2.3"
+    "bl": ">=2.2.1"
   },
   "scripts": {
     "start": "node index.js",
